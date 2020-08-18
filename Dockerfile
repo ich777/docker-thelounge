@@ -8,11 +8,6 @@ RUN apt-get update && \
 	apt-get -y install --no-install-recommends nodejs && \
 	rm -rf /var/lib/apt/lists/*
 
-RUN cd /tmp && \
-	wget -O /tmp/thelounge.deb https://github.com/thelounge/thelounge/releases/download/v4.1.0/thelounge_4.1.0_all.deb && \
-	apt-get -y install /tmp/thelounge.deb; exit 0 && \
-	rm -R /tmp/thelounge.deb
-
 ENV DATA_DIR=/thelounge
 ENV UMASK=000
 ENV UID=99
@@ -24,6 +19,11 @@ RUN mkdir $DATA_DIR && \
 	useradd -d $DATA_DIR -s /bin/bash $USER && \
 	chown -R $USER $DATA_DIR && \
 	ulimit -n 2048
+
+RUN cd /tmp && \
+	wget -O /tmp/thelounge.deb https://github.com/thelounge/thelounge/releases/download/v4.1.0/thelounge_4.1.0_all.deb && \
+	apt-get -y install /tmp/thelounge.deb; exit 0 && \
+	rm -R /tmp/thelounge.deb
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
