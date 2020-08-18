@@ -10,7 +10,8 @@ RUN apt-get update && \
 
 RUN cd /tmp && \
 	wget -O /tmp/thelounge.deb https://github.com/thelounge/thelounge/releases/download/v4.1.0/thelounge_4.1.0_all.deb && \
-	apt-get -y install /tmp/thelounge.deb; exit 0
+	apt-get -y install /tmp/thelounge.deb; exit 0 && \
+	rm -R /tmp/thelounge.deb
 
 ENV DATA_DIR=/thelounge
 ENV UMASK=000
