@@ -8,7 +8,11 @@ RUN apt-get update && \
 	apt-get -y install --no-install-recommends nodejs && \
 	rm -rf /var/lib/apt/lists/*
 
-ENV DATA_DIR=/etc/thelounge
+RUN cd /tmp && \
+	wget -O /tmp/thelounge.deb https://github.com/thelounge/thelounge/releases/download/v4.1.0/thelounge_4.1.0_all.deb && \
+	apt-get -y install /tmp/thelounge.deb; exit 0
+
+ENV DATA_DIR=/thelounge
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
