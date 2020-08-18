@@ -16,6 +16,32 @@ else
 fi
 
 echo "---Starting...---"
+LAT_V="$(curl -s https://api.github.com/repos/thelounge/thelounge/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
+CUR_V="$(thelounge --version | cut -d 'v' -f2)"
+if [ -z "$LAT_V" ]; then
+	echo "---Can't get latest version---"
+	LAT_V="$CUR_V"
+fi
+
+echo "---Version Check---"
+if [ "$CUR_V" != "$LAT_V" ]; then
+	echo "---Version missmatch, installed v$CUR_V, downloading and installing latest v$LAT_V...---"
+	cd /tmp
+	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/thelounge/thelounge/releases/download/v$LAT_V/thelounge_$LAT_V_all.deb" ; then
+		echo "---Successfully downloaded TheLounge v$LAT_V---"
+	else
+		echo "---Something went wrong, can't download TheLounge v$LAT_V, putting container into sleep mode!---"
+		sleep infinity
+	fi
+	apt-get -y install /tmp/thelounge.deb; exit 0
+elif [ "$CUR_V" == "$LAT_V" ]; then
+	echo "---TheLounge v$CUR_V up-to-date---"
+fi
+
+if [ ! -f ${DATA_DIR}/config.js ]; then
+	cp -R /etc/thelounge/* ${DATA_DIR}/
+fi
+
 chown -R ${UID}:${GID} /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
