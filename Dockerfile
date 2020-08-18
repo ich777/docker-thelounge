@@ -10,7 +10,7 @@ RUN apt-get update && \
 
 ENV DATA_DIR=/thelounge
 ENV USERNAME="admin"
-ENV PASSWORD="password"
+ENV USERPASSWORD="password"
 ENV SAVELOG="yes"
 ENV UMASK=000
 ENV UID=99
