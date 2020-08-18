@@ -9,6 +9,9 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR=/thelounge
+ENV USERNAME="admin"
+ENV PASSWORD="password"
+ENV SAVELOG="yes"
 ENV UMASK=000
 ENV UID=99
 ENV GID=100
@@ -21,7 +24,7 @@ RUN mkdir $DATA_DIR && \
 	ulimit -n 2048
 
 RUN cd /tmp && \
-	wget -O /tmp/thelounge.deb https://github.com/thelounge/thelounge/releases/download/v4.1.0/thelounge_4.1.0_all.deb && \
+	wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb https://github.com/thelounge/thelounge/releases/download/v4.1.0/thelounge_4.1.0_all.deb && \
 	apt-get -y install /tmp/thelounge.deb; exit 0 && \
 	rm -R /tmp/thelounge.deb
 
