@@ -22,6 +22,9 @@ if [ -z "$LAT_V" ]; then
 	echo "---Can't get latest version---"
 	LAT_V="$CUR_V"
 fi
+if [ -f /tmp/thelounge.deb ]; then
+	rm /tmp/thelounge.deb
+fi
 
 echo "---Version Check---"
 if [ "$CUR_V" != "$LAT_V" ]; then
