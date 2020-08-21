@@ -37,6 +37,7 @@ if [ "$CUR_V" != "$LAT_V" ]; then
 		sleep infinity
 	fi
 	apt-get -y install /tmp/thelounge.deb; exit 0
+	rm /tmp/thelounge.deb
 elif [ "$CUR_V" == "$LAT_V" ]; then
 	echo "---TheLounge v$CUR_V up-to-date---"
 fi
