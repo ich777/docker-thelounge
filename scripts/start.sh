@@ -16,7 +16,7 @@ else
 fi
 
 echo "---Starting...---"
-LAT_V="$(curl -s https://api.github.com/repos/thelounge/thelounge/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
+LAT_V="4.1.0"
 CUR_V="$(thelounge --version | cut -d 'v' -f2)"
 if [ -z "$LAT_V" ]; then
 	echo "---Can't get latest version---"
