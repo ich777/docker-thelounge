@@ -27,7 +27,7 @@ echo "---Version Check---"
 if [ "$CUR_V" != "$LAT_V" ]; then
 	echo "---Version missmatch, installed v$CUR_V, downloading and installing latest v$LAT_V...---"
 	cd /tmp
-	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/thelounge/thelounge/releases/download/v$LAT_V/thelounge_${LAT_V}_all.deb" ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/thelounge/thelounge/releases/download/v$LAT_V/thelounge_"$LAT_V"_all.deb" ; then
 		echo "---Successfully downloaded TheLounge v$LAT_V---"
 	else
 		echo "---Something went wrong, can't download TheLounge v$LAT_V, putting container into sleep mode!---"
