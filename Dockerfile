@@ -21,6 +21,7 @@ ENV USER="thelounge"
 RUN mkdir $DATA_DIR && \
 	useradd -d $DATA_DIR -s /bin/bash $USER && \
 	chown -R $USER $DATA_DIR && \
+	ln -s /thelounge/thelounge/index.js /usr/bin/thelounge && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
