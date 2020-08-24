@@ -1,6 +1,6 @@
 #!/bin/bash
 export THELOUNGE_HOME="${DATA_DIR}"
-
+sleep infinity
 echo "---Prepare Server---"
 USERS="$(ls ${DATA_DIR}/users | sed 's/\.json//g')"
 
