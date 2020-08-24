@@ -20,7 +20,7 @@ LAT_V="$(wget -qO- https://github.com/ich777/versions/raw/master/TheLounge | gre
 if [ -z "$LAT_V" ]; then
 	LAT_V="$(curl -u $GITHUB_USER:$GITHUB_SECRET -s https://api.github.com/repos/thelounge/thelounge-deb/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
 fi
-CUR_V="$(thelounge --version 2&>/dev/null | cut -d 'v' -f2)"
+CUR_V="$(thelounge --version 2>/dev/null | cut -d 'v' -f2)"
 if [ -z "$LAT_V" ]; then
 	if [ -z $CUR_V ]; then
 		echo "---Something went wrong, can't get latest version of TheLounge, putting container into sleep mode!---"
