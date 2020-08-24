@@ -16,7 +16,7 @@ else
 fi
 
 echo "---Starting...---"
-LAT_V="$(wget -qO- https://github.com/ich777/versions/raw/master/DoH | grep FORK | cut -d '=' -f2)"
+LAT_V="$(wget -qO- https://github.com/ich777/versions/raw/master/TheLounge | grep FORK | cut -d '=' -f2)"
 if [ -z "$LAT_V" ]; then
 	LAT_V="$(curl -u $GITHUB_USER:$GITHUB_SECRET -s https://api.github.com/repos/thelounge/thelounge-deb/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
 fi
