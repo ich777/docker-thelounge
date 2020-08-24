@@ -16,27 +16,45 @@ else
 fi
 
 echo "---Starting...---"
-LAT_V="4.1.0"
-CUR_V="$(thelounge --version | cut -d 'v' -f2)"
+LAT_V="$(wget -qO- https://github.com/ich777/versions/raw/master/DoH | grep FORK | cut -d '=' -f2)"
 if [ -z "$LAT_V" ]; then
-	echo "---Can't get latest version---"
-	LAT_V="$CUR_V"
+	LAT_V="$(curl -u $GITHUB_USER:$GITHUB_SECRET -s https://api.github.com/repos/thelounge/thelounge-deb/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
+fi
+CUR_V="$(thelounge --version 2&>/dev/null | cut -d 'v' -f2)"
+if [ -z "$LAT_V" ]; then
+	if [ -z $CUR_V ]; then
+		echo "---Something went wrong, can't get latest version of TheLounge, putting container into sleep mode!---"
+		sleep infinity
+	else
+		echo "---Can't get latest version, falling back to installed v$CUR_V---"
+		LAT_V="$CUR_V"
+	fi
 fi
 if [ -f /tmp/thelounge.deb ]; then
 	rm /tmp/thelounge.deb
 fi
 
 echo "---Version Check---"
-if [ "$CUR_V" != "$LAT_V" ]; then
-	echo "---Version missmatch, installed v$CUR_V, downloading and installing latest v$LAT_V...---"
+if [ ! -f /usr/bin/thelounge ]; then
+	echo "---TheLounge not found, installing v$LAT_V---"
 	cd /tmp
-	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/thelounge/thelounge/releases/download/v$LAT_V/thelounge_"$LAT_V"_all.deb" ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/ich777/thelounge/releases/download/$LAT_V/TheLounge-v$LAT_V.deb" ; then
 		echo "---Successfully downloaded TheLounge v$LAT_V---"
 	else
 		echo "---Something went wrong, can't download TheLounge v$LAT_V, putting container into sleep mode!---"
 		sleep infinity
 	fi
-	apt-get -y install /tmp/thelounge.deb; exit 0
+	apt-get -y install /tmp/thelounge.deb
+if [ "$CUR_V" != "$LAT_V" ]; then
+	echo "---Version missmatch, installed v$CUR_V, downloading and installing latest v$LAT_V...---"
+	cd /tmp
+	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/ich777/thelounge/releases/download/$LAT_V/TheLounge-v$LAT_V.deb" ; then
+		echo "---Successfully downloaded TheLounge v$LAT_V---"
+	else
+		echo "---Something went wrong, can't download TheLounge v$LAT_V, putting container into sleep mode!---"
+		sleep infinity
+	fi
+	apt-get -y install /tmp/thelounge.deb
 	rm /tmp/thelounge.deb
 elif [ "$CUR_V" == "$LAT_V" ]; then
 	echo "---TheLounge v$CUR_V up-to-date---"
