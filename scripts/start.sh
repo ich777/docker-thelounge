@@ -45,7 +45,7 @@ if [ ! -f /usr/bin/thelounge ]; then
 		sleep infinity
 	fi
 	apt-get -y install /tmp/thelounge.deb
-if [ "$CUR_V" != "$LAT_V" ]; then
+elif [ "$CUR_V" != "$LAT_V" ]; then
 	echo "---Version missmatch, installed v$CUR_V, downloading and installing latest v$LAT_V...---"
 	cd /tmp
 	if wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb "https://github.com/ich777/thelounge/releases/download/$LAT_V/TheLounge-v$LAT_V.deb" ; then
