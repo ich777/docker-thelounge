@@ -23,6 +23,11 @@ RUN mkdir $DATA_DIR && \
 	chown -R $USER $DATA_DIR && \
 	ulimit -n 2048
 
+RUN cd /tmp && \
+	wget -q -nc --show-progress --progress=bar:force:noscroll -O /tmp/thelounge.deb https://github.com/ich777/thelounge/releases/download/4.1.0/TheLounge-v4.1.0.deb && \
+	apt-get -y install /tmp/thelounge.deb && \
+	rm -R /tmp/thelounge.deb
+
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
 
