@@ -66,8 +66,15 @@ fi
 
 chmod -R ${DATA_PERM} ${DATA_DIR}
 export THELOUNGE_HOME="${DATA_DIR}"
+
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
+screen -wipe 2&>/dev/null
 echo "---Server ready---"
 
 echo "---Starting TheLounge---"
 cd ${DATA_DIR}
-thelounge start
+screen -S TheLounge -L -Logfile ${DATA_DIR}/masterLog.0 -d -m thelounge start
+sleep 2
+screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
+tail -f ${DATA_DIR}/masterLog.0
