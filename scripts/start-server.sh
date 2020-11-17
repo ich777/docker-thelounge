@@ -14,6 +14,10 @@ if [ -z "$LAT_V" ]; then
 	fi
 fi
 
+if [ -f ${DATA_DIR}/TheLounge-v$LAT_V.tar.gz ]; then
+	rm -rf ${DATA_DIR}/TheLounge-v$LAT_V.tar.gz
+fi
+
 echo "---Version Check---"
 if [ -z "$CUR_V" ]; then
 	echo "---TheLounge not installed, installing---"
@@ -74,7 +78,4 @@ echo "---Server ready---"
 
 echo "---Starting TheLounge---"
 cd ${DATA_DIR}
-screen -S TheLounge -L -Logfile ${DATA_DIR}/masterLog.0 -d -m thelounge start
-sleep 2
-screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
-tail -f ${DATA_DIR}/masterLog.0
+thelounge start 2>&1 | tee ${DATA_DIR}/masterLog.0
