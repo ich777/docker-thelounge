@@ -76,6 +76,16 @@ find ${DATA_DIR} -name "masterLog.*" -exec rm -f {} \;
 screen -wipe 2&>/dev/null
 echo "---Server ready---"
 
+echo "+-------------------------------------------------------------"
+echo "|"
+echo "| This container for ARM is deprecated and is no"
+echo "| longer actively maintained or further developed!"
+echo "|"
+echo "|  Container will start in 60 seconds!"
+echo "|"
+echo "+-------------------------------------------------------------"
+sleep 60
+
 echo "---Starting TheLounge---"
 cd ${DATA_DIR}
 thelounge start 2>&1 | tee ${DATA_DIR}/masterLog.0
