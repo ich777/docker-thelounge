@@ -4,7 +4,7 @@ LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
 	apt-get -y install --no-install-recommends curl screen && \
-	curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+	curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
 	apt-get -y install --no-install-recommends nodejs && \
 	rm -rf /var/lib/apt/lists/*
 
