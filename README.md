@@ -36,4 +36,4 @@ docker run --name TheLounge -d \
 
 This Docker was mainly edited for better use with Unraid, if you don't use Unraid you should definitely try it!
 
-#### Support Thread: https://forums.unraid.net/topic/79530-support-ich777-gameserver-dockers/
+#### Support Thread: https://forums.unraid.net/topic/83786-support-ich777-application-dockers/
