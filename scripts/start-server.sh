@@ -66,7 +66,11 @@ fi
 
 if [ ! -f ${DATA_DIR}/config.js ]; then
 	echo "---No 'config.js' found, copying default---"
-	cp ${DATA_DIR}/bin/defaults/config.js ${DATA_DIR}/config.js
+	if [ -f ${DATA_DIR}/bin/defaults/config.js ]; then
+	  cp ${DATA_DIR}/bin/defaults/config.js ${DATA_DIR}/config.js
+    elif [ -f ${DATA_DIR}/bin/dist/defaults/config.js ]; then
+      cp ${DATA_DIR}/bin/dist/defaults/config.js ${DATA_DIR}/config.js
+	fi
 fi
 
 chmod -R ${DATA_PERM} ${DATA_DIR}
