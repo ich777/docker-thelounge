@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.source="https://github.com/ich777/docker-theloung
 
 RUN apt-get update && \
 	apt-get -y install --no-install-recommends curl screen && \
-	curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+	curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
 	apt-get -y install --no-install-recommends nodejs && \
 	rm -rf /var/lib/apt/lists/*
 
